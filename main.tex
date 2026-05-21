@@ -1,0 +1,60 @@
+%!TEX program = xelatex
+% ==============================
+% main.tex —— BJUT 本科论文主文档
+% ==============================
+% 使用说明：
+% 1) 使用 XeLaTeX 编译 main.tex
+% 2) 先在本文件中填写封面信息
+% 3) 按需替换 data/ 下各章节内容
+% 4) 在 main.bib 中维护参考文献条目
+% 5) 不需要的章节可直接注释对应 \include 行
+\documentclass{bjutthesis}
+\usepackage[final]{pdfpages}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{bicaption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\bjutcoverTitleLineA}{论文题目第一行}
+\renewcommand{\bjutcoverTitleLineB}{论文题目第二行}
+\renewcommand{\bjutcoverAuthor}{姓名}
+\renewcommand{\bjutcoverStudentId}{学号}
+\renewcommand{\bjutcoverSupervisor}{指导教师}
+\renewcommand{\bjutcoverDate}{2026年6月}
+\renewcommand{\bjutstateDate}{2026年6月}
+
+
+\begin{document}
+% -----------封面与前置材料-------------
+\makecover
+\includepdf{assets/任务书下载步骤.pdf}%请将毕设平台上下载的PDF格式任务书加入工程，并替换至此处\includepdf{assets/任务书.pdf}
+\newpage
+\makestate
+\let\cleardoublepage\clearpage
+\frontmatter
+\let\cleardoublepage\clearpage
+
+% -----------摘要与目录-------------
+\include{data/cabstract}
+\include{data/eabstract}
+\let\cleardoublepage\clearpage
+\makebitoc
+\let\cleardoublepage\clearpage
+
+% -----------正文-------------
+\mainmatter
+\let\cleardoublepage\clearpage
+\include{data/chapt1}
+\let\cleardoublepage\clearpage
+%\include{data/chapt2}
+\let\cleardoublepage\clearpage
+%\include{data/chapt3}
+%\include{data/chapt4}
+\include{data/conclusion}
+\makebib{main}
+
+% -----------结尾-------------
+\backmatter
+\include{data/acknowledgement}
+%\include{data/publication}
+\end{document}

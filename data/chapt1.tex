@@ -1,0 +1,230 @@
+\bichapter{介绍和使用}{Introduction}\label{chap:intro}
+\linespread{1.08}\selectfont
+
+
+本章用于说明模板的组织方式与基本使用方法，帮助用户快速完成论文内容替换与结构调整。
+
+本模板依据“北京工业大学本科生毕业设计（论文）撰写规范”进行配置，重点覆盖封面、页边距、行距、标题层级、页眉页脚、摘要与参考文献等核心版式要素。
+
+本模板基于 \color{red}{https://github.com/hw401/BJUT-Undergraduate-Thesis} 进行结构调整和内容优化，将所有内容归档，方便用户替换与管理。
+
+请使用\textbf{{\color{red}XeLaTex}}编译器编译\textbf{{\color{red}main.tex}}文件。
+
+经过本人2026毕设测试，在overleaf上编译大概率会发生\textbf{编译超时}，建议使用\textbf{TexPage}进行编译。
+
+请务必按照自己所在年份的具体要求撰写论文，如需微调模板具体设置，请修改\textbf{{\color{red}bjutthesis.cls}}的相关内容。
+
+建议在提交前再次核对学院当年发布的补充要求，确保论文内容与格式均满足最新规定。
+
+\textbf{\color{red} {以下所有内容均满足2026年北京工业大学本科生毕业设计（论文）撰写规范}}
+
+\bisection{如何使用}{howtouse}\label{sec:fst}
+
+\subsection{模版文件总览}
+首先要明确的是，\LaTeX 出于安全的考虑，在unix环境下，往上一级目录写入编译时文件（如aux文件）时会被禁止。为了兼顾整洁与可维护性，当前版本将内容按目录拆分管理。建议将图片放在\verb|figures|目录，静态素材放在\verb|assets|目录。
+
+大多数用户使用时，都不必关注所有文件，只需了解如下几个文件：
+
+\begin{center}
+  \begin{minipage}{0.95\textwidth}
+    \begin{Verbatim}[frame=single]
+    主文档 : main.tex         样式文件 : bjutthesis.cls
+    中文摘要 : data/cabstract.tex  英文摘要 : data/eabstract.tex
+    正文章节 : data/chapt*.tex      结论 : data/conclusion.tex
+    参考文献 : main.bib              致谢 : data/acknowledgement.tex
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+以上文档使用时，基本上只需填入文字内容即可，不需要考虑格式。
+
+\subsubsection{快速替换顺序}
+
+首次使用建议按以下顺序替换内容：
+\begin{itemize}
+  \item 先修改封面信息（\verb|bjutthesis.cls| 中 \verb|\makecover| 的题目、姓名、学号、导师、日期）。
+  \item 再填写摘要与关键词（\verb|data/cabstract.tex| 与 \verb|data/eabstract.tex|）。
+  \item 然后编写正文章节（\verb|data/chapt*.tex|）与结论（\verb|data/conclusion.tex|）。
+  \item 最后补全参考文献（\verb|main.bib|）与致谢（\verb|data/acknowledgement.tex|）。
+\end{itemize}
+
+% 文字\cite{Boutsidis2011}
+\subsubsection{主文档}
+
+主文档正文部分组织了论文结构，论文正文从\verb|main.tex|进入，在相应位置添加\text{\let\cleardoublepage\clearpage \include{data/chapt*}}，内容由\verb |chapt1.tex|, \verb|chapt2.tex|等组织。用户自行添加，参考章节文档一节。%（todo）
+
+\subsubsection{中文摘要}
+
+中文摘要内容由\verb|cabstract|环境包裹，两个段落之间以大于1行的空行作为分割。
+
+在中文文档中，有\verb|ckeywords|环境包裹的关键词，以"；"分割。
+
+\subsubsection{英文摘要}
+
+ 英文摘要与中文摘要一致，由\verb|eabstract|环境包裹。
+
+ 类似的，也有\verb|ekeywords|环境包裹的关键词，但以","分割。
+
+ \subsubsection{章节文档}
+ 章节文档是论文的主要内容，在章节文档中，包含不同的小结，本模版共4级小结，分别由\verb|bisection|, \verb|subsection|, \verb|subsubsection|,  \verb|subsubsubsection| 标记。
+ 其中，目录会记录至第二级小结，即\verb|subsection|。具体书写格式参考本文档源码（\verb|chapt1.tex|）。
+
+\subsubsection{引用文档}
+
+引用文档格式为正常\verb|bib file|。 你可以使用\verb|cite{}|进行上标引用，如:
+
+\begin{center}
+  \begin{minipage}{0.65\textwidth}
+    \begin{Verbatim}[frame=single]
+      RSA\cite{rsa}算法
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+也可以使用\verb|citen{}|进行正文引用，如：
+
+\begin{center}
+  \begin{minipage}{0.65\textwidth}
+    \begin{Verbatim}[frame=single]
+      文献\citen{rsa}提出了...
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+\subsubsection{出版物文档}
+
+直接在\verb|publication|环境中添加即可。
+
+\subsubsection{致谢文档}
+
+同引用文档。
+
+\bisection{基本语法}
+下面介绍一些基本语法。可自行修改。
+\subsection{如何插入图片并引用}
+
+\begin{center}
+  \begin{minipage}{0.95\textwidth}
+    \begin{Verbatim}[frame=single]
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{assets/bjut_logo_color.pdf}
+  \caption{中文图题}
+  \label{fig:logo}
+\end{figure}
+
+% 使用\cref{<label>}引用: 如\cref{fig:logo}所示
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{assets/bjut_logo_color.pdf}
+  \caption{中文图题}
+  \label{fig:logo}
+\end{figure}
+“如\cref{fig:logo}所示”
+
+\subsection{如何插入表格并引用}
+
+\begin{center}
+  \begin{minipage}{0.95\textwidth}
+    \small
+    \begin{Verbatim}[frame=single]
+        \begin{table}[htpb]
+          \centering
+          \bicaption[]{三线表}{A Table Example}
+          \label{tab:1st}
+          \begin{tabular}{@{}llr@{}}
+            \toprule
+            \multicolumn{2}{c}{Item} & \\
+            \cmidrule(r){1-2}
+            Animal    & Description  & Price(\$) \\
+            \midrule
+            Gnat      & pergram      & 13.65 \\
+            & each         & 0.01 \\
+            Gnu       & stuffed      & 92.50 \\
+            Emu       & stuffed      & 33.33 \\
+            Armadillo & frozen       & 8.99 \\
+            \bottomrule
+          \end{tabular}
+        \end{table}
+        % 引用方法与图片一致 如\cref{tab:1st}所示
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+        \begin{table}[htpb]
+          \centering
+          \caption[]{三线表}
+          \label{tab:1st}
+          \begin{tabular}{@{}llr@{}}
+            \toprule
+            \multicolumn{2}{c}{Item} & \\
+            \cmidrule(r){1-2}
+            Animal    & Description  & Price(\$) \\
+            \midrule
+            Gnat      & pergram      & 13.65 \\
+            & each         & 0.01 \\
+            Gnu       & stuffed      & 92.50 \\
+            Emu       & stuffed      & 33.33 \\
+            Armadillo & frozen       & 8.99 \\
+            \bottomrule
+          \end{tabular}
+        \end{table}
+
+“如\cref{tab:1st}所示”
+
+
+\subsection{如何插入公式}
+
+\begin{center}
+  \begin{minipage}{0.85\textwidth}
+    \begin{Verbatim}[frame=single]
+      \begin{equation}\label{eq:eq1}
+        e^{\pi i}+1 = 0
+      \end{equation}
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+      \begin{equation}\label{eq:eq1}
+        e^{\pi i}+1 = 0
+      \end{equation}
+
+\subsection{如何插入算法}
+
+\begin{center}
+  \begin{minipage}{0.85\textwidth}
+    \begin{Verbatim}[frame=single]
+\begin{algorithm}[htbp]
+  \caption{1+1等于几}
+  \label{alg:algorithm}
+    \begin{algorithmic}[1]
+      \REQUIRE $1$.
+      \ENSURE $1$.
+      \STATE $i \leftarrow 1$
+      \FOR {$i \leq 1$}
+        \STATE $i \leftarrow i + 1$;
+      \ENDFOR
+      \STATE Return $i$.
+    \end{algorithmic}
+\end{algorithm}
+    \end{Verbatim}
+  \end{minipage}
+\end{center}
+
+\begin{algorithm}[htbp]
+\caption{1+1等于几}
+\label{alg:algorithm}
+\begin{algorithmic}[1]
+\REQUIRE $1$.
+\ENSURE $1$.
+\STATE $i \leftarrow 1$
+\FOR {$i \leq 1$}
+\STATE $i \leftarrow i + 1$;
+\ENDFOR
+\STATE Return $i$.
+\end{algorithmic}
+\end{algorithm}
